@@ -15,7 +15,9 @@ namespace FileSorter
         {
             Files fs = new Files();
 
-            string basepath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),@"../../../../../../"));
+            Console.WriteLine("Válasz meghajtót! (Csak a betűjele)");
+            string disk = Console.ReadLine();
+            string basepath = disk + ":/";
             Console.WriteLine("Add meg az elérési útvonalát a mappának");
             string path = Console.ReadLine();
             path = Path.GetFullPath(Path.Combine(basepath, path));
@@ -24,11 +26,17 @@ namespace FileSorter
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
+                
                 // Itt lehet bővíteni
-                if(file.Contains(".mp4") || file.Contains(".mp3") || file.Contains(".wav")) fs.mediafajlok(path, CurrentTime);
-                if (file.Contains(".png") || file.Contains(".jpg")) fs.kepek(path, CurrentTime);
-                if (file.Contains(".pdf") || file.Contains(".docx") || file.Contains(".ppt") || file.Contains(".rtf")) fs.doksik(path, CurrentTime);
-                if (file.Contains(".blend") || file.Contains(".blend1")) fs.blender(path, CurrentTime);
+                if(file.Contains(".mp4") || file.Contains(".mp3") || file.Contains(".wav") || file.Contains(".avi") || file.Contains(".flv") || file.Contains(".mov") || file.Contains(".mpeg") || file.Contains(".wmv")) fs.mediafajlok(path, CurrentTime);
+                if(file.Contains(".png") || file.Contains(".jpg") || file.Contains(".jpeg") || file.Contains(".gif") || file.Contains(".bmp") || file.Contains(".tiff") || file.Contains(".webp")) fs.kepek(path, CurrentTime);
+                if(file.Contains(".txt") || file.Contains(".pdf") || file.Contains(".docx") || file.Contains(".ppt") || file.Contains(".rtf") || file.Contains(".tex") || file.Contains(".odt") || file.Contains(".xml") || file.Contains(".doc")) fs.doksik(path, CurrentTime);
+                if(file.Contains(".blend") || file.Contains(".blend1") || file.Contains(".mdl") || file.Contains(".fbx") || file.Contains(".obj")) fs.blender(path, CurrentTime);
+                if (file.Contains(".torrent")) fs.Torrent(path, CurrentTime);
+                if (file.Contains(".py")) fs.Python(path, CurrentTime);
+                if (file.Contains(".exe")) fs.programok(path, CurrentTime);
+                if (file.Contains(".zip") || file.Contains(".rar") || file.Contains(".iso")) fs.Csomagolt(path, CurrentTime);
+                
             }
         }
     }
@@ -56,7 +64,7 @@ namespace FileSorter
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
-                if (file.Contains(".mp4") || file.Contains(".mp3") || file.Contains(".wav"))
+                if (file.Contains(".mp4") || file.Contains(".mp3") || file.Contains(".wav") || file.Contains(".avi") || file.Contains(".flv") || file.Contains(".mov") || file.Contains(".mpeg") || file.Contains(".wmv"))
                 {
                     string ideiglenesfajl;
                     string[] filesplitted = file.Split('\\');
@@ -87,7 +95,7 @@ namespace FileSorter
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
-                if (file.Contains(".png") || file.Contains(".jpg"))
+                if (file.Contains(".png") || file.Contains(".jpg") || file.Contains(".jpeg") || file.Contains(".gif") || file.Contains(".bmp") || file.Contains(".tiff") || file.Contains(".webp"))
                 {
                     string ideiglenesfajl;
                     string[] filesplitted = file.Split('\\');
@@ -119,7 +127,7 @@ namespace FileSorter
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
-                if (file.Contains(".pdf") || file.Contains(".docx") || file.Contains(".ppt") || file.Contains(".rtf"))
+                if (file.Contains(".txt") || file.Contains(".pdf") || file.Contains(".docx") || file.Contains(".ppt") || file.Contains(".rtf") || file.Contains(".tex") || file.Contains(".odt") || file.Contains(".xml") || file.Contains(".doc"))
                 {
                     string ideiglenesfajl;
                     string[] filesplitted = file.Split('\\');
@@ -151,7 +159,7 @@ namespace FileSorter
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
-                if (file.Contains(".blend") || file.Contains(".blend1"))
+                if (file.Contains(".blend") || file.Contains(".blend1") || file.Contains(".mdl") || file.Contains(".fbx") || file.Contains(".obj"))
                 {
                     string ideiglenesfajl;
                     string[] filesplitted = file.Split('\\');
@@ -161,7 +169,131 @@ namespace FileSorter
             }
         }
 
+        public void Torrent(string path, string CurrentTime)
+        {
+            string dirName = CurrentTime + "/Torrent";
+            string path2 = Path.GetFullPath(Path.Combine(path, @dirName));
+            try
+            {
 
+                if (Directory.Exists(path2))
+                {
+                    Console.WriteLine("A mappa már létezik ezen az útvonalon.");
+                    return;
+                }
+                Directory.CreateDirectory(path2);
+                Console.WriteLine("A mappa sikeresen létrehozva ekkor {0}.", Directory.GetCreationTime(path2));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("A folyamat nem ment végbe: {0}", e.ToString());
+            }
+            string[] files = Directory.GetFiles(path);
+            foreach (string file in files)
+            {
+                if (file.Contains(".torrent"))
+                {
+                    string ideiglenesfajl;
+                    string[] filesplitted = file.Split('\\');
+                    ideiglenesfajl = filesplitted[filesplitted.Length - 1];
+                    File.Move(Path.Combine(@path, @ideiglenesfajl), Path.Combine(@path2, @ideiglenesfajl));
+                }
+            }
+        }
+        public void Csomagolt(string path, string CurrentTime)
+        {
+            string dirName = CurrentTime + "/csomagolt";
+            string path2 = Path.GetFullPath(Path.Combine(path, @dirName));
+            try
+            {
 
+                if (Directory.Exists(path2))
+                {
+                    Console.WriteLine("A mappa már létezik ezen az útvonalon.");
+                    return;
+                }
+                Directory.CreateDirectory(path2);
+                Console.WriteLine("A mappa sikeresen létrehozva ekkor {0}.", Directory.GetCreationTime(path2));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("A folyamat nem ment végbe: {0}", e.ToString());
+            }
+            string[] files = Directory.GetFiles(path);
+            foreach (string file in files)
+            {
+                if (file.Contains(".zip") || file.Contains(".rar") || file.Contains(".iso"))
+                {
+                    string ideiglenesfajl;
+                    string[] filesplitted = file.Split('\\');
+                    ideiglenesfajl = filesplitted[filesplitted.Length - 1];
+                    File.Move(Path.Combine(@path, @ideiglenesfajl), Path.Combine(@path2, @ideiglenesfajl));
+                }
+            }
+        }
+
+        public void programok(string path, string CurrentTime)
+        {
+            string dirName = CurrentTime + "/programok";
+            string path2 = Path.GetFullPath(Path.Combine(path, @dirName));
+            try
+            {
+
+                if (Directory.Exists(path2))
+                {
+                    Console.WriteLine("A mappa már létezik ezen az útvonalon.");
+                    return;
+                }
+                Directory.CreateDirectory(path2);
+                Console.WriteLine("A mappa sikeresen létrehozva ekkor {0}.", Directory.GetCreationTime(path2));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("A folyamat nem ment végbe: {0}", e.ToString());
+            }
+            string[] files = Directory.GetFiles(path);
+            foreach (string file in files)
+            {
+                if (file.Contains(".exe"))
+                {
+                    string ideiglenesfajl;
+                    string[] filesplitted = file.Split('\\');
+                    ideiglenesfajl = filesplitted[filesplitted.Length - 1];
+                    File.Move(Path.Combine(@path, @ideiglenesfajl), Path.Combine(@path2, @ideiglenesfajl));
+                }
+            }
+        }
+
+        public void Python(string path, string CurrentTime)
+        {
+            string dirName = CurrentTime + "/Python";
+            string path2 = Path.GetFullPath(Path.Combine(path, @dirName));
+            try
+            {
+
+                if (Directory.Exists(path2))
+                {
+                    Console.WriteLine("A mappa már létezik ezen az útvonalon.");
+                    return;
+                }
+                Directory.CreateDirectory(path2);
+                Console.WriteLine("A mappa sikeresen létrehozva ekkor {0}.", Directory.GetCreationTime(path2));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("A folyamat nem ment végbe: {0}", e.ToString());
+            }
+            string[] files = Directory.GetFiles(path);
+            foreach (string file in files)
+            {
+                if (file.Contains(".py"))
+                {
+                    string ideiglenesfajl;
+                    string[] filesplitted = file.Split('\\');
+                    ideiglenesfajl = filesplitted[filesplitted.Length - 1];
+                    File.Move(Path.Combine(@path, @ideiglenesfajl), Path.Combine(@path2, @ideiglenesfajl));
+                }
+            }
+        }
     }
 }
