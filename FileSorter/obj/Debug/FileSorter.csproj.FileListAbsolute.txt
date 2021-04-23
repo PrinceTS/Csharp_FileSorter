@@ -12,3 +12,10 @@ D:\Disk Third\Git\Csharp_FileSorter\FileSorter\FileSorter\obj\Debug\FileSorter.c
 D:\Disk Third\Git\Csharp_FileSorter\FileSorter\FileSorter\obj\Debug\FileSorter.csproj.CoreCompileInputs.cache
 D:\Disk Third\Git\Csharp_FileSorter\FileSorter\FileSorter\obj\Debug\FileSorter.exe
 D:\Disk Third\Git\Csharp_FileSorter\FileSorter\FileSorter\obj\Debug\FileSorter.pdb
+D:\Disk Third\Github\Csharp_FileSorter\FileSorter\bin\Debug\FileSorter.exe.config
+D:\Disk Third\Github\Csharp_FileSorter\FileSorter\bin\Debug\FileSorter.exe
+D:\Disk Third\Github\Csharp_FileSorter\FileSorter\bin\Debug\FileSorter.pdb
+D:\Disk Third\Github\Csharp_FileSorter\FileSorter\obj\Debug\FileSorter.csprojAssemblyReference.cache
+D:\Disk Third\Github\Csharp_FileSorter\FileSorter\obj\Debug\FileSorter.csproj.CoreCompileInputs.cache
+D:\Disk Third\Github\Csharp_FileSorter\FileSorter\obj\Debug\FileSorter.exe
+D:\Disk Third\Github\Csharp_FileSorter\FileSorter\obj\Debug\FileSorter.pdb
